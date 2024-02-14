@@ -6,11 +6,11 @@ import math
 
 
 
-profitThreshold=0
-lpTerminalReward=0
-wpTerminalReward=0
-ngTerminalReward=0
-stepLimit=0
+profitThreshold=100
+lpTerminalReward=200
+wpTerminalReward=-500
+ngTerminalReward=-300
+stepLimit=10
 
 env=ENV(profitThreshold,lpTerminalReward,wpTerminalReward,ngTerminalReward,stepLimit)
 
@@ -39,14 +39,17 @@ def train(env,agent,epsilon,num_episodes):
         print()
         print(f"#########  Episode No-{i}")
         state=env.reset()
-        print(f"Initial State--{state}")
+        # print(f"Initial State--{state}")
+        step_size=0
         while True:
             actions = agent.choose_action(state)
             r = np.random.rand()
             # print(r)
             if r < epsilon:
+                print("Exploration")
                 next_action = np.random.choice(np.arange(pools_dim))
             else:
+                print("Greedy")
                 next_action = np.argmax(actions[0][:pools_dim])
             gas=actions[0][agent.action_dims - 1]
             if math.isnan(gas):
@@ -55,11 +58,15 @@ def train(env,agent,epsilon,num_episodes):
             print(f"ActionPerformed--- {action}")
             _state,reward,done=env.step(action)
             agent.store_transition(state,actions,reward,_state,done)
+            agent.learn()
             if(done):
                 profit_eachEpisode.append(env.profit)
                 break
-            agent.learn()
+
+            step_size+=1
         episode_lengths.append(step_size)
+        if(i%50==0):
+            epsilon = epsilon-0.03
 
 
     return episode_lengths,profit_eachEpisode
