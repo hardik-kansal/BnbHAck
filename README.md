@@ -25,28 +25,28 @@
 - Run these commands on Terminal
 
 ```bash
-git clone git@github.com:hardik-kansal/RL-Arbitrage-Cross-DEX.git
-cd RL-Arbitrage-Cross-DEX
+git clone git@github.com:hardik-kansal/BnbHAck.git
+cd BnbHAck
 cd chainENV 
 yarn install
 ```
 
 - Get `COINMARKETCAP API-KEY` from `https://coinmarketcap.com/api/`  
   
-- Get `ALCHEMY API-KEY` from `https://www.alchemy.com/`
+- Get `CHAINSTACK API-KEY` from `https://www.chainstack.com/`
 
 
 - Run the following command to start hardhat mainnet fork locally.
   
 ```bash
- yarn hardhat node --fork https://eth-mainnet.g.alchemy.com/v2/[ALCHEMY API-KEY]
+ yarn hardhat node --fork https://bsc-mainnet.core.chainstack.com/[API-KEY]
 ```
 
 
 
 - Copy any account and private-Key and paste under `ACCOUNT` in `Agent/config.ini`
 
-- You can add any no of tokens (currently from **UniswapV3** only) in the format `ETH=[decimal][ethereum-address]`
+- You can add any no of tokens (currently from **UniswapV3** only) in the format `ETH=[decimal][Binance - address]`
 
 
 
